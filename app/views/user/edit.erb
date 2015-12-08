@@ -1,0 +1,30 @@
+<% if @user.errors.any? %>
+	<% @user.errors.full_messages.each do |message|%>
+		<%= message%><br>
+	<%end%>	
+<% end %><br>
+
+<form class="editprof" action="/users/<%=@user.id%>" method="POST">
+	<input type="hidden" name="_method" value="patch">
+	<label>Full Name: </label>
+	<input type="text" name="full_name" value="<%=@user.full_name%>"><br>
+	<label>Email: </label>
+	<input type="text" name="email" value="<%=@user.email%>"><br>
+	<label>Username: </label>
+	<input type="text" name="username" value="<%=@user.username%>"><br>
+	<label>Bio: </label>
+	<input type="text" name="bio" value="<%=@user.bio%>"><br>
+	<h2>Enter your correct password to continue</h2>
+	<label>Password: </label>
+	<input type="password" name="password"><br>
+	<label>Confirm Password: </label>
+	<input type="password" name="password_confirmation"><br>
+	<input type="submit" value="Update">
+</form>
+
+<a href="/users/<%= @user.id %>/passwordchange/">change your password</a>
+
+<form class="delete" action="/users/<%=@user.id%>/delete" method="POST">
+	<input type="hidden" name="_method" value="delete">
+	<input type="submit" value="Delete">
+</form>

@@ -1,0 +1,10 @@
+<h2>MY PROFILE</h2><br>
+
+Full Name: <%= @user.full_name %><br>
+Username: <%= @user.username %><br>
+Email: <%= @user.email %><br>
+Bio: <%= @user.bio %><br>
+
+<%if session[:user_id] == @user.id%>
+	<a href="/users/<%= @user.id %>/edit"><button>Edit Profile</button></a>
+<%end%>

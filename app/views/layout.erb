@@ -1,0 +1,22 @@
+<head>
+  	<link rel="stylesheet" href="/css/application.css">
+  	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.0.0-alpha1/jquery.min.js"></script>
+  	<script type="text/javascript" src="https://cdn.jsdelivr.net/mailcheck/1.1/mailcheck.min.js"></script>
+  	<script type="text/javascript" src="/js/application.js"></script>
+</head>
+<%if session[:user_id] != nil%>
+	<ul>
+  		<li><a href="/">Home</a></li>
+  		<li><a href="/properties">My Properties</a></li>
+      <li><a href="/bookings">My Bookings</a></li>	
+      <li><a href="/users/<%= session[:user_id]%>"><%=User.find(session[:user_id]).username%></a></li>
+  		<li><a href="/users/logout">Logout</a></li>
+	</ul>
+<%else%>
+  <ul>
+    <li><a href="/users/new/">Login/SignUp</a></li>
+  </ul>
+<%end%>
+<body>
+  	<%= yield %>
+</body>

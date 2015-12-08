@@ -1,0 +1,41 @@
+<h1>MY PROPERTIES</h1>
+<% if @property.errors.any? %>
+	<% @property.errors.full_messages.each do |message|%>
+		<%= message%><br>
+	<%end%>	
+<% end %><br>
+<%if session[:user_id] == @user.id%>
+	<h2>Create A Property</h2>
+	<form action="/properties" method="POST">
+		<label>Name: </label>
+		<input type="text" name="name"><br>
+		<label>Address: </label>
+		<textarea name="address"></textarea><br>
+		<label>Number of Bedrooms: </label>
+		<input type="number" name="num_of_bedrooms"><br>
+		<label>Number of Bathrooms: </label>
+		<input type="number" name="num_of_bathrooms"><br>
+		<label>Price/Month: </label>
+		<input type="number" name="price_per_month"><br>
+		<label>Selling Price: </label>
+		<input type="number" name="sell_price"><br>
+		<label>Description: </label>
+		<input type="text" name="description"><br>
+		<input type="submit" value="Submit">
+	</form>
+<%end%>
+<%if @user.properties.any?%>
+	<% i = 1%>
+	<%@user.properties.each do |property|%>
+		<h3><%=i%>. <a href="/properties/<%= property.id %>/single"><%=property.name%></a></h3>
+		<label>Address: </label><%= property.address%><br>
+		<label>Number of Bedrooms: </label><%= property.num_of_bedrooms%><br>
+		<label>Number of Bathrooms: </label><%= property.num_of_bathrooms%><br>
+		<label>Price/Month: </label><%= property.price_per_month%><br>
+		<label>Selling Price: </label><%= property.sell_price%><br>
+		<label>Description: </label><%= property.description%><br>
+		<% i = i+1%>
+	<%end%>
+<%else%>
+	<label>You do not have any properties yet</label>
+<%end%>

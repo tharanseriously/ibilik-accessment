@@ -1,3 +1,8 @@
 get '/' do
-  erb :"static/index"
+	if params[:id]
+		@user = User.find(params[:id])
+	else
+		@user = User.new
+	end
+ 	erb :"static/index"
 end

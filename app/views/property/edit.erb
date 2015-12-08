@@ -1,0 +1,19 @@
+<h2>Update your Property</h2>
+	<form action="/properties/<%=@property.id%>" method="POST">
+		<input type="hidden" name="_method" value="patch">
+		<label>Name: </label>
+		<input type="text" name="name" value="<%=@property.name%>"><br>
+		<label>Address: </label>
+		<textarea name="address"><%=@property.address%></textarea><br>
+		<label>Number of Bedrooms: </label>
+		<input type="number" name="num_of_bedrooms" value="<%=@property.num_of_bedrooms%>"><br>
+		<label>Number of Bathrooms: </label>
+		<input type="number" name="num_of_bathrooms" value="<%=@property.num_of_bathrooms%>"><br>
+		<label>Price/Month: </label>
+		<input type="number" name="price_per_month" value="<%=@property.price_per_month%>"><br>
+		<label>Selling Price: </label>
+		<input type="number" name="sell_price" value="<%=@property.sell_price%>"><br>
+		<label>Description: </label>
+		<input type="text" name="description" value="<%=@property.description%>"><br>
+		<input type="submit" value="Submit">
+	</form>
