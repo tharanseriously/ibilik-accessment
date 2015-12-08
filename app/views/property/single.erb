@@ -7,6 +7,15 @@
 <label>Description: </label><%= @property.description%><br>
 <label>Owner: </label><a href="/users/<%= @property.user_id%>"><%=User.find(@property.user_id).username%></a><br>
 
+<%if session[:user_id]!= nil%>
+	<%if session[:user_id] != @property.user.id%>
+		<form class="booknew" action="/bookings/new" method="get">
+			<input type="hidden" name="id" value="<%= @property.id%>">
+			<input type="submit" value="BOOK NOW">
+		</form>
+	<%end%>
+<%end%>
+
 <%if session[:user_id] == @property.user_id%>
 	<a href="/properties/<%= @property.id %>/edit"><button>Update Property</button></a>
 	<form class="delete" action="/properties/<%=@property.id%>" method="POST">
@@ -15,23 +24,25 @@
 	</form>
 <%end%>
 
-<form action="/comments" method="POST">
-	<label>Comment :</label><br>
-	<textarea name="content"></textarea>
-	<input type="hidden" name="property_id" value=<%=@property.id%>>
-	<input type="submit" value="Submit">
-</form>
+<%if session[:user_id]!= nil%>
+	<form action="/comments" method="POST">
+		<label>Comment :</label><br>
+		<textarea name="content"></textarea>
+		<input type="hidden" name="property_id" value=<%=@property.id%>>
+		<input type="submit" value="Submit">
+	</form>
+<%end%>
 
 <h2>Comments</h2>
 <% if Comment.where("property_id= #{@property.id}") == nil %>
-	<h3>No Answers Yet</h3>
+	<label>No Answers Yet</label>
 <% else %>
 	<% comments = Comment.where("property_id= #{@property.id}") %>
 	<% comments.each do |comment| %>
 	<% user = User.find(comment.user_id)%>
 	<h3><%=comment.content%></h3>by <%=user.username%><br>
-		<%if session[:user_id] == comment.user.id%>
-			<a href="/comment/<%= comment.id %>/update"><button>Edit Comment</button></a>
+		<%if session[:user_id] == comment.user_id%>
+			<a href="/comments/<%=comment.id %>/edit"><button>Edit Comment</button></a>
     	<%end%>
 	<%end%>
 <% end%>

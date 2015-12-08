@@ -1,4 +1,5 @@
-<h2>Update your Property</h2>
+<%if session[:user_id] != nil%>
+	<h2>Update your Property</h2>
 	<form action="/properties/<%=@property.id%>" method="POST">
 		<input type="hidden" name="_method" value="patch">
 		<label>Name: </label>
@@ -17,3 +18,9 @@
 		<input type="text" name="description" value="<%=@property.description%>"><br>
 		<input type="submit" value="Submit">
 	</form>
+
+	<form class="delete" action="/properties/<%=@property.id%>" method="POST">
+		<input type="hidden" name="_method" value="delete">
+		<input type="submit" value="Delete Property">
+	</form>
+<%end%>

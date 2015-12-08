@@ -27,12 +27,13 @@ gem 'rspec'
 #password protection
 gem 'bcrypt'
 
-#debugging purpose
-gem 'byebug'
+#validates_overlap
+
 
 group :development, :test do
 	# Adding shotgun for local web hosting
 	gem 'shotgun'
+	gem 'byebug'
 end
 
 group :production do

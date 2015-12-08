@@ -1,0 +1,18 @@
+<%if session[:user_id] != nil%>
+	<h2>UPDATE YOUR BOOKING</h2>
+	<form action="/bookings/<%=@booking.id%>" method="POST">
+		<input type="hidden" name="_method" value="patch">
+		<label>Start Date: </label>
+		<input type="date" name="start_date" value="<%=@booking.start_date%>"><br>
+		<label>End Date: </label>
+		<input type="date" name="end_date" value="<%=@booking.end_date%>"><br>
+		<label>Comment: </label>
+		<input type="text" name="comment" value="<%=@booking.comment%>"><br>
+		<input type="hidden" name="id" value="<%=@booking.id%>"><br>
+		<input type="submit" value="Submit">
+	</form>
+	<form class="delete" action="/bookings/<%=@booking.id%>" method="POST">
+		<input type="hidden" name="_method" value="delete">
+		<input type="submit" value="Cancel Booking">
+	</form>
+<%end%>

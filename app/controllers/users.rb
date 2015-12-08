@@ -3,7 +3,7 @@ get "/users/new/" do
 		@error = params[:error]
 	end
 	@user = User.new
-	erb :"user/signin_up"
+	erb :"user/form"
 end
 
 get "/users/logout" do
@@ -12,7 +12,7 @@ get "/users/logout" do
 end
 
 get "/users/:id" do
-	@user = User.find(session[:user_id])
+	@user = User.find(params[:id])
 	erb :"user/show"
 end
 
@@ -33,9 +33,9 @@ post "/users" do
 	@user = User.new(full_name: params[:full_name], email: params[:email], username: params[:username], password: params[:password], password_confirmation: params[:password_confirmation])
 	if @user.save	
 		session[:user_id] = @user.id
-		redirect "/users/#{@user.id}"
+		redirect "/?id=#{@user.id}"
 	else
-		erb :"user/signin_up"
+		erb :"user/form"
 	end
 end
 

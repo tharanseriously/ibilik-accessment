@@ -1,0 +1,13 @@
+<%if session[:user_id] != nil%>
+	<h2>BOOK IT NOW</h2>
+	<form action="/bookings" method="POST">
+		<label>Start Date: </label>
+		<input type="date" name="start_date" placeholder="DD-MM-YYYY"><br>
+		<label>End Date: </label>
+		<input type="date" name="end_date" placeholder="DD-MM-YYYY"><br>
+		<label>Comment: </label>
+		<input type="text" name="comment"><br>
+		<input type="hidden" name="id" value="<%=@property.id%>"><br>
+		<input type="submit" value="Submit">
+	</form>
+<%end%>

@@ -1,0 +1,35 @@
+<h1>MY BOOKINGS</h1>
+<% if @booking.errors != nil%>
+	<% @booking.errors.full_messages.each do |message|%>
+		<%= message%><br>
+	<%end%>	
+<% end %><br>
+<%bookings =Booking.where("user_id = #{session[:user_id]}")%>
+<%if bookings.any?%>
+	<% i = 1%>
+	<%bookings.each do |booking|%>
+		<%property = Property.find(booking.property_id)%>
+		<%owner = User.find(booking.owner_id)%>
+		<h3><%=i%>. <a href="/properties/<%= property.id %>/single"><%=property.name%></a></h3>
+		<label>Owner: </label><%= owner.username%><br>
+		<label>Address: </label><%= property.address%><br>
+		<label>Number of Bedrooms: </label><%= property.num_of_bedrooms%><br>
+		<label>Number of Bathrooms: </label><%= property.num_of_bathrooms%><br>
+		<label>Description: </label><%= property.description%><br>
+		<label>Owner: </label><%= booking.start_date%><br>
+		<label>Start Date: </label><%= booking.start_date%><br>
+		<label>End Date: </label><%= booking.end_date%><br>
+		<label>Your Comment: </label><%= booking.comment%><br>
+		<label>Status: </label><%= booking.status%><br>
+		<%if session[:user_id] == booking.user_id%>
+			<form class="editbook" action="/bookings/edit" method="GET">
+				<input type="hidden" name="id" value="<%=booking.id%>">
+				<input type="submit" value="EDIT YOUR BOOKING">
+			</form>
+		<%end%>
+		<% i = i+1%>
+	<%end%>
+<%else%>
+	<label>You have not made any bookings yet</label>
+<%end%>
+

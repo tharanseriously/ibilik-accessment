@@ -1,1 +1,19 @@
 <h1>PROPERTIES</h1>
+<%properties=Property.all%>
+<%if properties != nil %>
+	<% i = 1%>
+	<%properties.each do |property|%>
+		<%user = property.user%>
+		<h3><%=i%>. <a href="/properties/<%= property.id %>/single"><%=property.name%></a></h3>
+		<label>Address: </label><%= property.address%><br>
+		<label>Number of Bedrooms: </label><%= property.num_of_bedrooms%><br>
+		<label>Number of Bathrooms: </label><%= property.num_of_bathrooms%><br>
+		<label>Price/Month: </label><%= property.price_per_month%><br>
+		<label>Selling Price: </label><%= property.sell_price%><br>
+		<label>Description: </label><%= property.description%><br>
+		<label>Owner: </label><a href="/users/<%= user.id%>"><%=user.username%></a>
+		<% i = i+1%>
+	<%end%>
+<%else%>
+	<label>There are no properties yet</label>
+<%end%>
